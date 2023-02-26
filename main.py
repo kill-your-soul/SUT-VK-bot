@@ -1,3 +1,4 @@
+import os
 import logging
 import re
 import pymysql
@@ -9,8 +10,7 @@ from dateutil.relativedelta import relativedelta
 from vkbottle import Callback, GroupEventType, Keyboard, Text, BaseStateGroup, KeyboardButtonColor
 from vkbottle.bot import Bot, Message, MessageEvent, rules
 
-bot = Bot(
-    "vk1.a.Oog0qopWHR8_ncVXU2Mdbe9pGLFOPSenEUUT06-YTnxRKvc8el5c8somPIBxsEXF7cVCegtPh8MeQcdaAkPwerzbeaF_YPhlw2MBP_fW2s4FUXGWiHcra7izlWYy7AQN68hYOHRCUNJpxgm1fyrpM0-Q_ZtHeDCF3esvH1gECdWkS4dxLkTo8H5vpqpFQ2KZoWwD9QYp0A-l4nWWyH1jgQ")
+bot = Bot(os.environ.get('token'))
 
 logging.basicConfig(level=logging.INFO)
 bot.labeler.message_view.replace_mention = True
@@ -671,4 +671,7 @@ async def start_handler(message: Message):
                              f"Для работы с разделом Коворкинг, выберите пункт меню \"Коворкинг\"", keyboard=getDefaultKeyboard(message.from_id))
         await bot.state_dispenser.set(message.peer_id, States.COMMON)
 
-bot.run_forever()
+
+if __name__ == '__main__':
+    bot.run_forever()
+    
